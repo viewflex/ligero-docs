@@ -63,7 +63,9 @@ Viewflex\Ligero\LigeroServiceProvider::class,
 
 The goal is to provide a versatile, extensible CRUD micro-framework that can be easily understood and deployed, while integrating all the necessary component types, following SOLID design principles, and enabling rapid modelling of domains in a Domain-Driven Design (DDD) fashion.
 
-The package architecture follows the Strategy Pattern, and is designed for simple or complex applications. A `Publisher` represents the assembly of components (configuration, request validation, presentation logic, domain logic, and database queries) that serve a particular business or application domain. The `PublisherInterface` provides the all the necessary methods for processing CRUD requests, returning raw or presented results, plus dynamic data for UI controls.
+The package architecture follows the Strategy Pattern, and is designed for simple or complex applications. A Publisher represents the assembly of components (configuration, request, presentation logic, domain logic, and database queries) that serve a particular business or application domain. The `PublisherInterface` provides the all the necessary methods for processing CRUD requests, returning raw or presented results, plus dynamic data for UI controls.
+
+This is an illustration of the pattern employed in this package, which can be used to output views or raw data.
 
 ![publisher flow](https://raw.githubusercontent.com/viewflex/ligero-docs/master/img/publisher-flow.png)
 

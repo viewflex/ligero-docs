@@ -3,7 +3,7 @@
 This document tracks changes in release versions of **Ligero**. This project adheres to the [Semantic Versioning](http://semver.org/spec/v2.0.0.html) standard.
 
 
-## Version [1.0.2](https://github.com/viewflex/ligero/tree/1.0.2) - 2017-12-13
+## Version [1.0.2](https://github.com/viewflex/ligero/tree/1.0.2) - 2017-12-14
 
 ### Changed
 
