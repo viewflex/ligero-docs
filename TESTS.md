@@ -38,3 +38,4 @@ The `testsuite` phpunit option allows tests suites, as defined in the `phpunit.x
 	--testsuite="Unit"
 	--testsuite="Integration"
 	--testsuite="Functional"
+	--testsuite="Context"
