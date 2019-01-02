@@ -20,10 +20,6 @@ At this point, regarding contributions, I would like to focus on the existing fe
 
 I would especially like to see examples of deployment, including front-end design that really takes advantage of the built-in dynamic data output capabilities. At some point I would like to offer a "starter kit" of templates and skins to get people up and running quickly with designs for various types of sites, so this may be a way for designers to showcase their works.
 
-## Workflow
-
-This repository is managed using the [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) workflow concept. In this way of thinking, 'feature' branches are created from and merged back into the 'develop' branch. A 'release' branch, once reviewed and polished, is merged back into the 'master' branch (and 'develop').
-
 ## Contact
 
 We will soon have a blog to host discussions on this package, but meanwhile, I will be happy to receive feedback via email at viewflex.contact gmail com
