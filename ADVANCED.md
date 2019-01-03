@@ -84,20 +84,20 @@ Rules for the standard input parameters are set separately and cannot be modifie
 
 #### Standard Input Parameters
 
-A set of pre-defined input parameters controls the basic operation of Publisher queries. The names of these parameters are reserved, and should not be used for custom inputs or database columns. These are the standard parameters with their validation rules
+A set of pre-defined input parameters controls the basic operation of Publisher queries. The names of these parameters are reserved, and should not be used for custom inputs or database columns. These are the standard input parameters with their validation rules:
 
 ``` php
 [
-	id 				=> 'numeric|min:1',
-	keyword 		=> 'max:32',
-	sort 			=> 'max:32',
-	view 			=> 'in:list,grid,item',
-	limit 			=> 'numeric|min:1',
-	start 			=> 'numeric|min:0',
-	action			=> 'max:32',
-	items 			=> 'array',
-	options 		=> 'array',
-	page 			=> 'numeric|min:1',
+    'id'            => 'numeric|min:1',
+    'keyword'       => 'max:32',
+    'sort'          => 'max:32',
+    'view'          => 'in:list,grid,item',
+    'limit'         => 'numeric|min:1',
+    'start'         => 'numeric|min:0',
+    'action'        => 'max:32',
+    'items'         => 'array',
+    'options'       => 'array',
+    'page'          => 'numeric|min:1'
 ]
 ```
 

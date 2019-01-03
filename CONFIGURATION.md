@@ -232,26 +232,26 @@ setContexts($contexts)
 Input parameters are validated according to the appropriate rules array. Specify all valid custom inputs and their rules (no need to specify internally supported parameters). In a resourceful UI controller, typically the GET rules are used for queries and the POST rules are used for store/update/destroy requests.
 
 ```php
-setRules([
-	'author'      		=> 'max:100',
-	'title'				=> 'max:100',
+setQueryRules([
+    'author'            => 'max:100',
+    'title'             => 'max:100',
 ])
 ```
 
 ```php
-setRule('title', 'max:100')
+setQueryRule('title', 'max:100')
 ```
 
 ```php
-setPostRules([
-	'author'      		=> 'max:100',
-	'title'				=> 'max:100',
-	'description'       => 'max:250'
-])
+setRequestRules([
+    'author'            => 'max:100',
+    'title'             => 'max:100',
+    'description'       => 'max:250'
+]);
 ```
 
 ```php
-setPostRule('description', 'max:250')
+setRequestRule('description', 'max:250')
 ```
 
 #### Replace or Merge Inputs
