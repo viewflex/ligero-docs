@@ -137,9 +137,9 @@ Below is a detailed configuration example for the keyword search UI control. Sco
 ```php
 setKeywordSearchConfig([
     'columns'           =>  [
-		'author',
-		'title',
-		'description'
+        'author',
+        'title',
+        'description'
     ],
     'scope'             =>  'query',
     'persist_sort'      =>  true,
