@@ -132,7 +132,7 @@ Also specify whether to use the 'page' parameter in generated links - otherwise 
 
 #### Keyword Search
 
-Below is a detailed configuration example for the keyword search UI control. Scope can be 'query' (search within current results) or 'global'. Specify whether to persist the sort and view parameters in a query, or omit them and let the defaults be used instead. Also specify whether to persist the keywod as a placeholder in the search text box.
+Below is a detailed configuration example for the keyword search UI control. Scope can be 'query' (search within current results) or 'global'. Specify whether to persist the sort and view parameters in a query, or omit them and let the defaults be used instead. Also specify whether to persist the keyword as a placeholder in the search text box.
 
 ```php
 setKeywordSearchConfig([
@@ -186,9 +186,33 @@ These settings get their defaults from the package's [`ligero.php`](https://gith
 
 #### Caching and Logging
 
+Enable/disable the cache, and specify cache lifetime, passing an array.
+
 ```php
-setCaching($caching)
-setLogging($logging)
+setCaching([
+    'active'            =>  true,
+    'minutes'           =>  10
+])
+```
+
+Enable/disable the cache, passing a boolean value.
+
+```php
+setCaching(true)
+```
+
+Enable/disable logging passing an array. Custom elements can be added to provide logging options.
+
+```php
+setLogging([
+    'active'            =>  true
+])
+```
+
+Enable/disable logging, passing a boolean value.
+
+```php
+setLogging(true)
 ```
 
 #### URL Format, Paths, Options
