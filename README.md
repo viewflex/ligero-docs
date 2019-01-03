@@ -131,15 +131,13 @@ class ItemsController extends BasePublisherController
                 'subcategory',
                 'description'
             ])
-            ->setRules([
-                'id'                => 'numeric|min:1',
+            ->setQueryRules([
                 'active'            => 'boolean',
                 'name'              => 'max:60',
                 'category'          => 'max:25',
                 'subcategory'       => 'max:25'
             ])
-            ->setPostRules([
-                'id'                => 'numeric|min:1',
+            ->setRequestRules([
                 'active'            => 'boolean',
                 'name'              => 'max:60',
                 'category'          => 'max:25',

@@ -24,13 +24,19 @@ These settings are specific to the given domain, getting their defaults from the
 
 Specify the domain name used in messages and labels ('Items' in the demo) - this is also used (lower-cased) as part of the the domain view prefix. For multiple-word domain names, name should be in `StudlyCaps` case (no spaces).
 
+```php
+setDomain($domain)
+```
+
 Specify the resource namespace used to locate published resources in the application's `resources/lang/vendor/[namespace]` and `resources/views/vendor/[namespace]` directories. The package default is 'ligero', but you can set a custom namespace for domain resources - useful if there are many, or if non-canonical names result in naming conflicts between domains.
+
+```php
+setResourceNamespace($resource_namespace)
+```
 
 Specify a translation filename ('items' in the demo) to get translations from a specific file in the configured resource namespace.
 
 ```php
-setDomain($domain)
-setResourceNamespace($resource_namespace)
 setTranslationFile($translation_file)
 ```
 
@@ -47,13 +53,35 @@ setModelName($model_name)
 
 Specify any default values desired for query parameters. This can be useful when you want some parameters to always be there, unseen; unless overridden by explicit inputs, they will not appear in generated URL query strings.
 
-Specify all columns to return in query results (default, and optionally, per view). Specify any columns to treat as wildcards (`'LIKE'` instead of `'='`) in explicit queries on that column (as opposed to keyword search, which treats all target columns as wildcards).
+```php
+setQueryDefaults([
+    'view'              => 'list',
+    'sort'              => 'latest'
+])
+```
 
 ```php
-setQueryDefaults($query_defaults)
-setQueryDefault($name, $value)
-setResultsColumns($results_columns, $view = 'default')
-setWildcardColumns($wildcard_columns)
+setQueryDefault('view' => 'list')
+```
+
+Specify all columns to return in query results (default, and optionally, per view).
+
+```php
+setResultsColumns([
+    'id',
+    'author',
+    'title',
+    'description'
+])
+```
+
+Specify string columns to treat as wildcards (using `'LIKE'` instead of the `'='` operator) in explicit queries on that column (as opposed to keyword search, which treats all target columns as wildcards).
+
+```php
+setWildcardColumns([
+    'author',
+    'title'
+])
 ```
 
 #### Toggles for UI Controls
@@ -61,35 +89,95 @@ setWildcardColumns($wildcard_columns)
 Enable or disable generation of individual dynamic UI controls, such as pagination and keyword search..
 
 ```php
-setControls($controls)
-setControl($name, $enabled)
+setControls([
+    'pagination'        => true,
+    'keyword_search'    => false
+])
+```
+
+``` php
+setControl('keyword_search', false)
 ```
 
 #### Pagination
 
-Detailed configuration of pagination UI controls.
+This is the specification for a detailed configuration of pagination UI controls.
 
 ```php
-setPaginationConfig($pagination_config)
+setPaginationConfig([
+	'pager'             =>  [
+	    'make'              =>  true,
+	    'context'           =>  'logical',
+	],
+	'page_menu'         =>  [
+	    'make'              =>  true,
+	    'context'           =>  'logical',
+	    'max_links'         =>  5
+	],
+	'view_menu'         =>  [
+	    'make'              =>  true,
+	    'context'           =>  'logical',
+	],
+	'use_page_number'   =>  true
+])
 ```
+
+Specify individually whether to generate data for the **pager**, **page menu**, and **view menu** UI controls.
+
+Specify the navigational context to use in generating links. For the pager and page menu, specify 'logical' (zero-start) or 'relative' (to the current start position, even if it's offset from the logical pagination). The number of pages displayed in the page menu can be controlled by 'max_links'.
+
+With the view menu there is an additional possibility when switching view modes - the 'fresh' context, which returns to the first page, rather than maintaining relative or logical position in the paginated results.
+
+Also specify whether to use the 'page' parameter in generated links - otherwise the 'start' parameter is used. If this feature is used in 'logical' context, the 'page' parameter can be useful for SEO and other purposes.
 
 #### Keyword Search
 
-Detailed configuration of keyword search UI control.
+Below is a detailed configuration example for the keyword search UI control. Scope can be 'query' (search within current results) or 'global'. Specify whether to persist the sort and view parameters in a query, or omit them and let the defaults be used instead. Also specify whether to persist the keywod as a placeholder in the search text box.
 
 ```php
-setKeywordSearchConfig($keyword_search_config)
-setKeywordSearchColumns($keyword_search_columns)
+setKeywordSearchConfig([
+    'columns'           =>  [
+		'author',
+		'title',
+		'description'
+    ],
+    'scope'             =>  'query',
+    'persist_sort'      =>  true,
+    'persist_view'      =>  true,
+    'persist_input'     =>  false,
+    'on_change'         => 'this.form.submit()'
+])
+```
+
+Configuring just the search columns:
+
+``` php
+setKeywordSearchColumns([
+    'author',
+    'title',
+    'description'
+])
 ```
 
 #### Sorts and View/Limit
 
-Define named sorts available via the 'sort' query parameter, and specify limits for the default and named views (list, grid, item, and any custom views you create).
+Define named sorts available via the 'sort' query parameter, and specify limits for the default and named views (list, grid, item, and any custom views you create). These examples use the package's default values.
 
 ```php
-setSorts($sorts)
-setViewLimits($view_limits)
-setViewLimit($view_limit, $view = 'default')
+setSorts(['default' => ['id' => 'asc']])
+```
+
+```php
+setViewLimits([
+    'default'           =>  10,
+    'list'              =>  5,
+    'grid'              =>  20,
+    'item'              =>  1
+])
+```
+
+```php
+setViewLimit('default', 10)
 ```
 
 ### Global Configuration
@@ -144,10 +232,26 @@ setContexts($contexts)
 Input parameters are validated according to the appropriate rules array. Specify all valid custom inputs and their rules (no need to specify internally supported parameters). In a resourceful UI controller, typically the GET rules are used for queries and the POST rules are used for store/update/destroy requests.
 
 ```php
-setRules($rules)
-setRule($name, $value)
-setPostRules($post_rules)
-setPostRule($name, $value)
+setRules([
+	'author'      		=> 'max:100',
+	'title'				=> 'max:100',
+])
+```
+
+```php
+setRule('title', 'max:100')
+```
+
+```php
+setPostRules([
+	'author'      		=> 'max:100',
+	'title'				=> 'max:100',
+	'description'       => 'max:250'
+])
+```
+
+```php
+setPostRule('description', 'max:250')
 ```
 
 #### Replace or Merge Inputs
@@ -174,5 +278,8 @@ setActionOptions($options)
 Specify the mapping for any input parameters named differently than their corresponding columns in the data source.
 
 ``` php
-setColumnMap($column_map)
+setColumnMap([
+    'author'            => 'author_full',
+    'title'             => 'title_short',
+])
 ```

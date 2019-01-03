@@ -5,11 +5,12 @@
 
 ## Advanced Usage
 
-Here we examine the Publisher, explore creating domain contexts and APIs, and discuss some additional advanced features.
+Here we examine usage of the Publisher object in greater detail, explore creating domain contexts and APIs, and discuss other advanced functionalities supported by this package.
 
 [QuickStart](README.md)  |  [Configuration](CONFIGURATION.md)  |  Advanced Usage
 
-- [The Publisher](#the-publisher)
+- [Publisher Methods](#publisher-methods)
+- [Publisher Parameters](#publisher-parameters)
 - [Configuration for Multiple Domains](#configuration-for-multiple-domains)
 - [Domain-Driven Design Using Contexts](#domain-driven-design-using-contexts)
 - [Presenters](#presenters)
@@ -18,13 +19,14 @@ Here we examine the Publisher, explore creating domain contexts and APIs, and di
 - [Localization](#localization)
 - [Unit Conversions](#unit-conversions)
 
-### The Publisher
 
-A Publisher object is used to perform CRUD operations and generate a dynamic data-driven display with contextual search and navigation controls. These are the main methods providing such functionality to the front end.
+### Publisher Methods
+
+A Publisher object is used to perform CRUD operations and generate a dynamic data-driven display with contextual search and navigation controls. These are the main methods providing such functionality anywhere a Publisher is implemented.
 
 #### Raw Results and UI Data
 
-Get results for a pre-configured query, data for dynamic UI controls, and full info on the query. Return records as a collection with `getResults()`, or as a plain array with `getItems()`. Use `getData()` to retrieve all these elements as a bundle.
+Get query results, data for dynamic UI controls, and full information on the query. Return records as a collection with `getResults()`, or as a plain array with `getItems()`. Use `getData()` to retrieve all these elements as a bundle.
 
 ```php
 getQueryInfo()
@@ -39,7 +41,7 @@ getData()
 
 #### Presented Results
 
-Return presented records as configured in the [Presenter](#presenters) class. Use `presentData()` to retrieve the full data bundle.
+Return an array of presented records as configured in the [Presenter](#presenters) class. As with `getData()` (above), use `presentData()` to retrieve the full data bundle.
 
 ```php
 presentItems()
@@ -60,7 +62,7 @@ delete($id = null)
 
 #### Multi-Record List Actions
 
-The 'action' and 'items' query parameters can be used to perform actions on a selection of records. The package supports the actions 'clone' and 'delete'. To add new actions, extend the `BasePublisherRepository`, adding new cases to the `action()` method.
+The 'action', 'items' and 'options' query parameters can be used to perform actions on a selection of records. The package supports the actions 'clone' and 'delete'. To add new actions, extend the `BasePublisherRepository`, adding new cases to the `action()` method.
 
 ```php
 action($inputs = null)
@@ -68,6 +70,36 @@ action($inputs = null)
 
 Separate from this functionality, using 'select_all' as the 'action' parameter in a query will select all item checkboxes in the results display, via the `$form_item_checked` attribute for each row of results data passed to the views. This is useful when creating a pure HTML front end, where JavaScript can't be used to manipulate UI elements.
 
+### Publisher Parameters
+
+
+
+A Publisher accepts standard set of input parameters that are used to configure query operations, and also allows you to define your own custom input parameters. Default values for all query inputs can be set with the fluent setter methods `setQueryDefault()` and `setQueryDefaults()`.
+
+#### Validation Rules are Required
+
+Any query input without a corresponding validation rule will be ignored. See [Input Parameters](CONFIGURATION.md#input-parameters) in the Configuration documentation, and refer to the [example below](#creating-a-domain-ontext), to understand how rules are set. 
+
+Rules for the standard input parameters are set separately and cannot be modified.
+
+#### Standard Input Parameters
+
+A set of pre-defined input parameters controls the basic operation of Publisher queries. The names of these parameters are reserved, and should not be used for custom inputs or database columns. These are the standard parameters with their validation rules
+
+``` php
+[
+	id 				=> 'numeric|min:1',
+	keyword 		=> 'max:32',
+	sort 			=> 'max:32',
+	view 			=> 'in:list,grid,item',
+	limit 			=> 'numeric|min:1',
+	start 			=> 'numeric|min:0',
+	action			=> 'max:32',
+	items 			=> 'array',
+	options 		=> 'array',
+	page 			=> 'numeric|min:1',
+]
+```
 
 ### Configuration for Multiple Domains
 
@@ -128,15 +160,13 @@ class ItemsContext extends BaseContext
                 'subcategory',
                 'description'
             ])
-            ->setRules([
-                'id'                => 'numeric|min:1',
+            ->setQueryRules([
                 'active'            => 'boolean',
                 'name'              => 'max:60',
                 'category'          => 'max:25',
                 'subcategory'       => 'max:25'
             ])
-            ->setPostRules([
-                'id'                => 'numeric|min:1',
+            ->setRequestRules([
                 'active'            => 'boolean',
                 'name'              => 'max:60',
                 'category'          => 'max:25',
@@ -252,7 +282,6 @@ class ItemPresenter extends BasePresenter
 
 }
 ```
-
 
 ### Handling Relations
 
