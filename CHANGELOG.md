@@ -3,6 +3,16 @@
 This document tracks changes in release versions of **Ligero**. This project adheres to the [Semantic Versioning](http://semver.org/spec/v2.0.0.html) standard.
 
 
+## Version [1.1.2](https://github.com/viewflex/ligero/tree/1.1.2) - 2019-03-25
+
+### Changed
+
+- Reorg of Publisher traits.
+- PSR-2, minor mods, comments.
+- BasePublisherConfig uses new 'package' attribute in config() calls.
+- Pagination controls more correctly handle explicit offset in logical context.
+
+
 ## Version [1.1.1](https://github.com/viewflex/ligero/tree/1.1.1) - 2019-01-08
 
 ### Fixed

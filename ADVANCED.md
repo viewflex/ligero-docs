@@ -78,7 +78,7 @@ A Publisher accepts standard set of input parameters that are used to configure 
 
 #### Validation Rules are Required
 
-Any query input without a corresponding validation rule will be ignored. See [Input Parameters](CONFIGURATION.md#input-parameters) in the Configuration documentation, and refer to the [example below](#creating-a-domain-ontext), to understand how rules are set. 
+Any query input without a corresponding validation rule will be ignored. See [Input Parameters](CONFIGURATION.md#input-parameters) in the Configuration documentation, and refer to the [example below](#creating-a-domain-context), to understand how rules are set. 
 
 Rules for the standard input parameters are set separately and cannot be modified.
 

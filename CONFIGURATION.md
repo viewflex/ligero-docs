@@ -128,7 +128,7 @@ Specify the navigational context to use in generating links. For the pager and p
 
 With the view menu there is an additional possibility when switching view modes - the 'fresh' context, which returns to the first page, rather than maintaining relative or logical position in the paginated results.
 
-Also specify whether to use the 'page' parameter in generated links - otherwise the 'start' parameter is used. If this feature is used in 'logical' context, the 'page' parameter can be useful for SEO and other purposes.
+Also specify whether to use the 'page' parameter in links (when generated in 'logical' context) - otherwise the 'start' parameter is used. The 'page' parameter can be useful for SEO and other purposes, but it's essentially an extra pagination parameter that gets converted to a 'start' value, if no 'start' is specified either explicitly or as a default.
 
 #### Keyword Search
 
