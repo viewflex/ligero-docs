@@ -8,7 +8,7 @@ This document tracks changes in release versions of **Ligero**. This project adh
 ### Changed
 
 - Suggest instead of require Forex package.
-- Replaced array helper methods with Str:: equivalents.
+- Replaced array helper methods with Arr:: equivalents.
 - Test setUp methods now return void.
 - Schema id is now bigIncrement type.
 
